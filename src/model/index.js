@@ -4,11 +4,15 @@
  **/
 const Backbone = require('backbone');
 const Service = require('util/proxy/service');
+const Collection = require('util/adt/collection');
 
 const IndexModel = Backbone.Model.extend({
 
 	defaults: function() {
-		return { property: 1 };
+		return {
+			property: 1,
+			items: Collection.new()
+		};
 	},
 
 	initialize: function() {
