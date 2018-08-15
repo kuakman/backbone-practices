@@ -1,8 +1,0 @@
-{
-  "extebds": "../tsconfig",
-  "compilerOptions": {
-    "module": "system",
-	"sourceMap": true,
-    "inlineSourceMap": true
-  }
-}

@@ -3,26 +3,11 @@ System.config({
   defaultJSExtensions: true,
   transpiler: "ts",
   typescriptOptions: {
-    "tsconfig": true
+	  module: "commonjs"
   },
   paths: {
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
-  },
-
-  packages: {
-    "pages": {
-      "defaultExtension": "ts"
-    },
-    "model": {
-      "defaultExtension": "ts"
-    },
-    "ui": {
-      "defaultExtension": "ts"
-    },
-    "util": {
-      "defaultExtension": "ts"
-    }
   },
 
   map: {

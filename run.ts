@@ -1,6 +1,5 @@
 /**
  *	Main Run
- *
  **/
 import * as express from 'express';
 
@@ -13,7 +12,7 @@ app.get('/test/get/json', (res: express.Response) => {
 	res.json(data);
 });
 
-app.post('/test/post/json', (res: express.Response) => {
+app.post('/test/post/json', (req: express.Request, res: express.Response) => {
 	const data = { property: 2 };
 	res.json(data);
 });
