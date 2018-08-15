@@ -2,6 +2,7 @@
  * @module util.class
  * @author Patricio Ferreira <patricio.ferreira@build.com>
  **/
+import _ from 'underscore';
 import { Events } from 'backbone';
 
 export interface IClass {
@@ -13,14 +14,13 @@ declare const IClass: {
 	new (prop: string): IClass;
 }
 
-class Class extends Events implements IClass {
+class Class implements IClass {
 
-	constructor() {
-		super();
-		return this.initialize.apply(this, arguments);
+	constructor(...args: any[]) {
+		return _.extend(this.initialize(...args), Events);
 	}
 
-	initialize() {
+	initialize(...args: any[]) {
 		return this;
 	}
 
