@@ -1,3 +1,6 @@
+# Application
+src/jspm_packages
+
 # Logs
 logs
 *.log
