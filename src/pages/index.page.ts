@@ -19,7 +19,7 @@ class IndexPage extends Backbone.View<IndexModel> {
 
 	static async new(): Promise<IndexPage> {
 		const model = IndexModel.new(), page = new IndexPage({ model });
-		await model.fetchData(() => { page.render() });
+		await model.fetchData(() => page.render());
 		return page;
 	}
 
