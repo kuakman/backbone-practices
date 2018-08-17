@@ -27,7 +27,7 @@ const Service = Class.extend({
 
 	parse: function(response, request) {
 		return request.onParse ?
-			request.onParse.call(this, this, response, request) :
+			request.onParse.call(this, response, request) :
 			this.constructor.prototype.parse.apply(this, arguments);
 	},
 

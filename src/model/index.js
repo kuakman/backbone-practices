@@ -2,16 +2,17 @@
  * @module model
  * @author Patricio Ferreira <patricio.ferreira@build.com>
  **/
+const _ = require('util/mixin');
 const Backbone = require('backbone');
 const Service = require('util/proxy/service');
-const Collection = require('util/adt/collection');
+const Shipment = require('model/shipment/shipment');
 
 const IndexModel = Backbone.Model.extend({
 
 	defaults: function() {
 		return {
 			property: 1,
-			items: Collection.new()
+			shipments: new Backbone.Collection({ model: Shipment })
 		};
 	},
 
@@ -24,18 +25,27 @@ const IndexModel = Backbone.Model.extend({
 	},
 
 	fetchData: function(success, fail) {
-		return this.execute({
-			path: '/post/json',
-			data: {},
-			onParse: this.onData.bind(this)
-		}, success, fail);
+		return this.execute({ path: '/post/json', data: {}, onParse: this.onData.bind(this) }, success, fail);
 	},
 
-	onData(model, response) {
-		model.set(response);
+	onData(response) {
+		if(_.defined(response)) {
+			this.onShipments(response.shipments);
+			this.set(_.pick(response, this.constructor.properties));
+		}
+	},
+
+	onShipments: function(response) {
+		if(_.defined(response) && _.isArray(response)) {
+			this.get('shipments').set(response);
+		}
 	}
 
 }, {
+
+	properties: [
+		'property'
+	],
 
 	new: function() {
 		return new IndexModel();

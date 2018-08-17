@@ -3,11 +3,30 @@ System.config({
   defaultJSExtensions: true,
   transpiler: "ts",
   typescriptOptions: {
-	  module: "commonjs"
+    "module": "commonjs"
   },
   paths: {
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
+  },
+
+  packages: {
+    "tachyons": {
+      "defaultExtension": "css"
+    },
+    "templates": {
+      "defaultExtension": "html"
+    }
+  },
+
+  meta: {
+    "*.css": {
+      "defaultExtension": "css",
+      "loader": "css"
+    },
+    "*.html": {
+       "loader": "text"
+	}
   },
 
   map: {
@@ -16,7 +35,9 @@ System.config({
     "jquery": "npm:jquery@3.3.1",
     "source-map-support": "npm:source-map-support@0.5.8",
     "tachyons": "npm:tachyons@4.11.1",
+    "text": "github:systemjs/plugin-text@0.0.11",
     "ts": "github:frankwallis/plugin-typescript@9.0.0",
+    "ts-runtime": "npm:babel-runtime@5.8.38",
     "typescript": "npm:typescript@3.0.1",
     "underscore": "npm:underscore@1.9.1",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -88,6 +109,9 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.1",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "npm:util@0.10.3"
+    },
+    "npm:babel-runtime@5.8.38": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:backbone@1.3.3": {
       "process": "github:jspm/nodelibs-process@0.1.2",
