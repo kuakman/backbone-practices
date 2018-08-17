@@ -1,6 +1,5 @@
 /**
  * @module model
- * @author Patricio Ferreira <patricio.ferreira@build.com>
  **/
 const _ = require('util/mixin');
 const Backbone = require('backbone');

@@ -1,5 +1,5 @@
 /**
- *	Mixins
+ * @module util
  **/
 const _ = require('underscore');
 

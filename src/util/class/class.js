@@ -1,6 +1,5 @@
 /**
  * @module util.class
- * @author Patricio Ferreira <patricio.ferreira@build.com>
  **/
 const _ = require('underscore');
 const Backbone = require('backbone');
