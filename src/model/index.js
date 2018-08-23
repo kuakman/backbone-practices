@@ -27,7 +27,7 @@ const IndexModel = Backbone.Model.extend({
 		return this.execute({ path: '/post/json', data: {}, onParse: this.onData.bind(this) }, success, fail);
 	},
 
-	onData(response) {
+	onData: function(response) {
 		if(_.defined(response)) {
 			this.onShipments(response.shipments);
 			this.set(_.pick(response, this.constructor.properties));

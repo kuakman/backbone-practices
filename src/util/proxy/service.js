@@ -39,6 +39,10 @@ const Service = Class.extend({
 
 	onResponse: function(handler, response, request) {
 		return (handler) ? handler(this, response, request) : null;
+	},
+
+	getVerbs: function() {
+		return Service.verbs;
 	}
 
 }, {
