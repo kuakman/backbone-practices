@@ -14,6 +14,9 @@ System.config({
     "tachyons": {
       "defaultExtension": "css"
     },
+    "styles": {
+      "defaultExtension": "css"
+    },
     "templates": {
       "defaultExtension": "html"
     }

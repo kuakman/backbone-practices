@@ -5,6 +5,7 @@ const _ = require('util/mixin');
 const Backbone = require('backbone');
 const ViewHelper = require('util/proxy/view-helper');
 const ShipmentTpl = require('templates/ui/shipment/shipment.html')
+require('styles/shipment/shipment.css');
 
 const Shipment = Backbone.View.extend({
 

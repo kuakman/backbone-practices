@@ -1,0 +1,8 @@
+.shipment {
+	border: 1px solid grey;
+	margin: 10px;
+}
+
+.shipment > p {
+	margin-bottom: 0;
+}

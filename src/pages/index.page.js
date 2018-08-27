@@ -8,6 +8,7 @@ const ViewHelper = require('util/proxy/view-helper');
 const ShipmentView = require('ui/shipment/shipment');
 const Collection = require('util/adt/collection');
 require('tachyons/css/tachyons.css');
+require('styles/global.css');
 
 const IndexPage = Backbone.View.extend({
 
