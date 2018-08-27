@@ -5,4 +5,5 @@
 
 .shipment > p {
 	margin-bottom: 0;
+	cursor: pointer;
 }
