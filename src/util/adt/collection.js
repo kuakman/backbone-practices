@@ -273,6 +273,18 @@ const Collection = Class.extend({
 	},
 
 	/**
+	 * A convenient version of what is perhaps the most common use-case for map: extracting a list of property values.
+	 * @public
+	 * @param {string} propertyName - the property name used to extract values from each element
+	 * @returns {Array}
+	 **/
+	pluck: function(propertyName) {
+		return this._validInterface() ?
+			this.map((element) => { return this._json(element)[propertyName]; }) :
+			_.pluck.call(this, this._collection, propertyName);
+	},
+
+	/**
 	 * Return an element at a given index from this collection, undefined when not found.
 	 * @public
 	 * @params {number} ix - the index used to retrieve the element
@@ -282,24 +294,26 @@ const Collection = Class.extend({
 	},
 
 	/**
-	 * Returns true if a given predicate used to evaluate the comparison of 2 elements in this collection is satisfied,
-	 * false otherwise.
+	 * Returns true if a given predicate used to evaluate the comparison of elements in this collection is satisfied,
+	 * at least once for a given element, false otherwise.
 	 * @public
 	 * @param {Function} predicate - the predicate used for comparison
 	 * @returns {boolean}
 	 **/
 	containsBy: function(predicate) {
-		// TODO
+		if(!_.defined(predicate) || !_.isFunction(predicate)) return false;
+		return _.defined(this.find((element, ix, elements) => predicate(element, ix, elements)));
 	},
 
 	/**
-	 * Returns true if a given collection of elements are contained in this collection, false otherwise
+	 * Returns true if a given collection of elements are contained in this collection, false otherwise.
 	 * @public
 	 * @param {any[]} elements - the collection of elements
 	 * @returns {boolean}
 	 **/
-	containsAll: function() {
-		// TODO
+	containsAll: function(elements) {
+		if(!_.defined(elements) || !_.isArray(elements)) return false;
+		return _.every(_.map(elements, (element) => this.contains(element)));
 	},
 
 	/**
@@ -347,12 +361,10 @@ const Collection = Class.extend({
 	 * Underscore list of methods to aggregate into this collection class
 	 **/
 	_methods: [
-		'forEach', 'each', 'map', 'collect', 'reduce', 'foldl', 'inject',
-		'reduceRight', 'foldr', 'find', 'detect', 'filter', 'select', 'reject',
-		'every', 'all', 'some', 'any', 'include', 'includes', 'contains',
-		'invoke', 'max', 'min', 'toArray', 'size', 'first', 'head',
-		'take', 'initial', 'rest', 'tail', 'drop', 'last', 'without',
-		'difference', 'indexOf', 'shuffle', 'lastIndexOf', 'isEmpty', 'chain', 'sample',
+		'forEach', 'each', 'map', 'reduce', 'reduceRight', 'find', 'filter',
+		'reject', 'every', 'all', 'some', 'contains', 'invoke', 'max', 'min',
+		'toArray', 'size', 'first', 'initial', 'rest', 'last', 'without',
+		'unique', 'difference', 'indexOf', 'shuffle', 'lastIndexOf', 'isEmpty', 'chain', 'sample',
 		'partition', 'groupBy', 'countBy', 'sortBy', 'indexBy', 'findIndex', 'findLastIndex'
 	],
 
