@@ -3,6 +3,7 @@
  **/
 const _ = require('util/mixin');
 const Backbone = require('backbone');
+const ViewHelper = require('util/proxy/view-helper');
 const ShipmentTpl = require('templates/ui/shipment/shipment.html')
 
 const Shipment = Backbone.View.extend({
@@ -11,20 +12,11 @@ const Shipment = Backbone.View.extend({
 
 	initialize: function(options) {
 		Shipment.__super__.initialize.apply(this, arguments);
-		return Object.assign(this, _.accept(options, this.constructor.properties, this.getDefaults()));
+		return ViewHelper.proxy(this, options, this.constructor.properties);
 	},
 
 	getDefaults: function() {
 		return { template: _.template(ShipmentTpl) };
-	},
-
-	targetEl: function() {
-		return _.defined(this.parent) && _.defined(this.parent.targetEl) ? _.result(this.parent, 'targetEl') : $('body');
-	},
-
-	element: function() {
-		this.setElement($(this.el).appendTo(_.result(this, 'targetEl')));
-		return this;
 	},
 
 	render: function() {
@@ -33,6 +25,7 @@ const Shipment = Backbone.View.extend({
 	},
 
 	update: function() {
+		Shipment.__super__._setAttributes.call(this, { 'data-id': this.model.get('id') });
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
 	}
@@ -40,8 +33,10 @@ const Shipment = Backbone.View.extend({
 }, {
 
 	properties: [
+		'setAttributes',
 		'parent',
-		'targetEl'
+		'targetEl',
+		'method'
 	],
 
 	new: function() {

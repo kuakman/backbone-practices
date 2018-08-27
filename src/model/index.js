@@ -3,7 +3,7 @@
  **/
 const _ = require('util/mixin');
 const Backbone = require('backbone');
-const Service = require('util/proxy/service');
+const ModelHelper = require('util/proxy/model-helper');
 const Shipment = require('model/shipment/shipment');
 
 const IndexModel = Backbone.Model.extend({
@@ -16,7 +16,7 @@ const IndexModel = Backbone.Model.extend({
 	},
 
 	initialize: function() {
-		return Service.proxy(this);
+		return ModelHelper.proxy(this);
 	},
 
 	url: function() {

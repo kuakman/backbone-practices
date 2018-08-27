@@ -1,14 +1,16 @@
 /**
  * @module util.proxy
  **/
-const _ = require('underscore');
+const _ = require('util/mixin');
 const Backbone = require('backbone');
 const Class = require('util/class/class');
 
-const Service = Class.extend({
+let _singleton = null;
+
+const ModelHelper = Class.extend({
 
 	proxy: function(model) {
-		return Service.methods.reduce((model, method) => {
+		return ModelHelper.methods.reduce((model, method) => {
 			if(this[method]) model[method] = this[method].bind(model);
 			return model;
 		}, model);
@@ -16,7 +18,7 @@ const Service = Class.extend({
 
 	payload: function(params) {
 		const filtered = _.omit(params, 'path');
-		return Object.assign({ type: Service.verbs.Post, url: this.resolveUrl(params.path) }, filtered);
+		return Object.assign({ type: ModelHelper.verbs.Post, url: this.resolveUrl(params.path) }, filtered);
 	},
 
 	resolveUrl: function(path) {
@@ -39,15 +41,11 @@ const Service = Class.extend({
 
 	onResponse: function(handler, response, request) {
 		return (handler) ? handler(this, response, request) : null;
-	},
-
-	getVerbs: function() {
-		return Service.verbs;
 	}
 
 }, {
 
-	NAME: 'Service',
+	NAME: 'ModelHelper',
 
 	verbs: {
 		Get: 'GET',
@@ -59,10 +57,11 @@ const Service = Class.extend({
 
 	methods: ['payload', 'resolveUrl', 'parse', 'execute', 'onResponse'],
 
-	new: function() {
-		return new Service();
+	proxy: function(model) {
+		if(!_.defined(_singleton)) _singleton = _.construct(ModelHelper, []);
+		return _singleton.proxy(model);
 	}
 
 });
 
-module.exports = Service.new();
+module.exports = ModelHelper;

@@ -6,11 +6,6 @@ const Collection = require('util/adt/collection');
 
 const Queue = Collection.extend({
 
-	initialize: function(initial, options) {
-		Object.assign(this, _.accept(options, this.constructor.properties, this.getDefaults()));
-		return Queue.__super__.initialize.apply(this, arguments);
-	},
-
 	getDefaults: function() {
 		return { capacity: 0 };
 	},

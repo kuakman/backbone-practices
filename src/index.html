@@ -9,7 +9,12 @@
 		<script src="config.js"></script>
 	</head>
 	<body>
-		<div class="main flex flex-row w-100"></div>
+		<div class="main flex flex-row w-100">
+			<div class="shipment w-50 pa3" data-id="1">
+				<h2 class="mv0">Shipment 1</h2>
+				<p>Status Preparing to Shipment</p>
+			</div>
+		</div>
 		<script type="text/javascript">
 			SystemJS.import('pages/index.page').then((Page) => Page.new());
 		</script>

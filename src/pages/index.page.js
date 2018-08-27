@@ -1,8 +1,10 @@
 /**
  * @module pages
  **/
+const _ = require('util/mixin');
 const Backbone = require('backbone');
 const IndexModel = require('model/index');
+const ViewHelper = require('util/proxy/view-helper');
 const ShipmentView = require('ui/shipment/shipment');
 const Collection = require('util/adt/collection');
 require('tachyons/css/tachyons.css');
@@ -11,20 +13,21 @@ const IndexPage = Backbone.View.extend({
 
 	el: '.main',
 
-	initialize: function() {
+	initialize: function(options) {
 		IndexModel.__super__.initialize.apply(this, arguments);
-		this.views = Collection.new([], { interface: ShipmentView });
-		return this.attachEvents();
+		// Note: Look at the notes in util/proxy/view. Here are both cases:
+		// return ViewHelper.proxy(this.attachEvents(), options, this.constructor.properties);
+		return Object.assign(this.attachEvents(), _.accept(options, this.constructor.properties, this.getDefaults()));
+	},
+
+	getDefaults: function() {
+		return { views: Collection.new([], { interface: ShipmentView }) };
 	},
 
 	attachEvents: function() {
 		this.listenTo(this.model.get('shipments'), 'update', this.update);
 		this.listenTo(this.views, Collection.events.reset, this.onNoShipments);
 		return this;
-	},
-
-	targetEl: function() {
-		return this.$el;
 	},
 
 	render: function() {
@@ -40,7 +43,7 @@ const IndexPage = Backbone.View.extend({
 	createView: function(shipment) {
 		return ShipmentView.new({
 			parent: this,
-			$el: this.$el.find(`.shipment[data-id="${shipment.id}"]`),
+			el: `.shipment[data-id="${shipment.id}"]`,
 			model: this.model.get('shipments').findWhere(shipment)
 		});
 	},
@@ -50,6 +53,12 @@ const IndexPage = Backbone.View.extend({
 	}
 
 }, {
+
+	properties: [
+		'parent',
+		'targetEl',
+		'method'
+	],
 
 	new: function() {
 		const model = IndexModel.new(), page = new IndexPage({ model });
