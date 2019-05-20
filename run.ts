@@ -22,7 +22,8 @@ app.post('/test/post/json', (req: express.Request, res: express.Response) => {
 			{ id: 4, status: { id: 3, name: 'Delivered' } }
 		]
 	};
-	res.json(data);
+
+	setTimeout(function() { res.json(data) }, 7000);
 });
 
 app.listen(3000);
