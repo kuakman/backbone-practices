@@ -24,8 +24,7 @@
     "@types/underscore": "1.8.8",
     "jspm": "0.16.54",
     "ts-node": "7.0.0",
-    "typescript": "3.0.1",
-    "tar": "2.2.2"
+    "typescript": "3.0.1"
   },
   "jspm": {
     "directories": {
